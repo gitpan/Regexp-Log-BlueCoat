@@ -6,7 +6,7 @@ use Regexp::Log 0.01;
 use base qw( Regexp::Log );
 use vars qw( $VERSION %DEFAULT %FORMAT %REGEXP %UFS );
 
-$VERSION = 0.02;
+$VERSION = 0.03;
 
 =head1 NAME
 
@@ -62,7 +62,7 @@ by the regexp() method fail on each streaming log line.
 =cut
 
 my $IP   = '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}';
-my $HOST = '[-.\\w]+';
+my $HOST = '[-.\\S]+';
 
 # define the BlueCoat specific stuff
 %REGEXP = (
@@ -120,7 +120,7 @@ my $HOST = '[-.\\w]+';
 
 # %r    cs-request-line First line of the request No
 # %s    sc-status The code returned by the cache to the client (HTTP code).  Yes
-    '%s' => '(?#=sc-status)\\d{1,3}(?#!sc-status)',
+    '%s' => '(?#=sc-status)\\d{1,4}(?#!sc-status)',
 
 # %t    gmttime GMT date and time of the user request, in the format [DD/MM/YYYY:hh:mm:ss GMT] Yes
     '%t' =>
